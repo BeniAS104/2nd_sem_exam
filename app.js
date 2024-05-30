@@ -1,29 +1,35 @@
 "use strict"; // Use ECMAScript 5 strict mode in browsers that support it
 
 window.addEventListener("load", initApp); // When the page is loaded, run initApp function
-let projectData = [];
 // Function to initialize the Web App
   async function initApp() {
   const projectData = await getData();
   displayProjects(projectData);
 }
 
+// This function fetches data from the specified URL
 async function getData () {
+  // Fetch data from the URL
   const response = await fetch ("http://headless.bendev.dk/wp-json/wp/v2/projects?acf_format=standard&orderby=date&order=asc");
+  // Extract JSON data from the response
   const data = await response.json();
+  // Return the extracted data
   return data;
-  
 }
 
+// displays the fetched project data on the webpage
 function displayProjects(projectData){
+  // Selects the HTML element with the class "project__container"
   const projectGrid = document.querySelector(".project__container");
 
+  // Loops through each project in the fetched data
   for (const project of projectData) {
+    // Logs the number of filterableCards (not sure what this refers to, maybe a debugging statement?)
     console.log("Number of filterableCards:", projectData.length); // Check if filterableCards is not empty
-
+    // Inserts HTML for each project into the projectGrid element
     projectGrid.insertAdjacentHTML(
       "beforeend",
-       `
+      `
       <div class="project__item" data-name="${project.acf.dataName}">
         <img src="${project.acf.image}" alt="${project.title.rendered}" />
         <h3>${project.acf.title}</h3>
@@ -33,18 +39,16 @@ function displayProjects(projectData){
       </div>
     `
     );
+  }
 }
-}
+
 // Selects all filter buttons and filterable cards (project_items)
 const filterButtons = document.querySelectorAll(".filter__buttons button");
 const filterableCards = document.querySelectorAll(".project__item");
-console.log("Number of filterableCards:", projectData.length); // Check if filterableCards is not empty
+ console.log( filterableCards.length); // Check if filterableCards is not empty
 
 // Create and define the function for filtering
 async function filterCards(clickEvent) {
-  const response = await fetch ("http://headless.bendev.dk/wp-json/wp/v2/projects?acf_format=standard&orderby=date&order=asc");
-  const data = await response.json();
-  console.log(data)
   // Remove active class from all buttons
   for (const button of filterButtons) {
     button.classList.remove("active");
@@ -62,8 +66,6 @@ async function filterCards(clickEvent) {
     }
   }
 }
-
-
 
 // Adds a click event listener to each of the filter buttons - if clicked then activate the function above
 for (const button of filterButtons) {
