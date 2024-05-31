@@ -197,6 +197,8 @@ body {
   justify-content: center;
   margin: 6rem auto 4rem;
   border-radius: 10px;
+  border: 1px solid transparent;
+  transition: .3s;
 }
 /* filtering for projects */
 .hide {
@@ -210,16 +212,22 @@ body {
 .filter__buttons button {
   color: white;
   width: 12vw;
-  background: gray;
+  background: rgb(86, 85, 85);
   padding: 1rem 2rem;
   border: none;
   border-radius:10px ;
   cursor: pointer;
   font-size: 16px;
- 
+  transition:  .3s;
+  border: 2px solid transparent;
+}
+.filter__buttons button:hover:not(.active) {
+  background-color: rgba(227, 225, 225, 0.889);
+  border: 1px solid black;
+  color: black;
 }
 .filter__buttons button.active {
-  background: rgb(60, 59, 59);
+  background: rgb(51, 51, 51);
   border: 2px solid black;
 }
 /* projects */
@@ -229,18 +237,25 @@ body {
   justify-content: center;
   margin-bottom: 3rem;
 }
-
 .project__item a {
   margin-top: 2em;
   display: inline-block;
   color: inherit;
-  text-decoration: underline;
+  text-decoration: none;
   color: #f0f0f0;
   padding: 1rem 5rem;
   border-radius: 10px;
   background-color: black;
   width: 40%;
   margin-top: auto;
+  transition: .3s;
+  border: 1px solid transparent;
+}
+.project__item a:hover, .magnum__opus a:hover {
+  background-color: rgba(87, 87, 87, 0.889);
+  border: 1px solid black;
+  color: white;
+  
 }
 .project__container h3 {
   font-size: 1.25rem;
@@ -257,8 +272,8 @@ body {
 .project__type {
   font-weight: 500;
   color: white;
-  background: black;
-  border-radius: 10px;
+  background: rgb(55, 55, 55);
+  border-radius: 50px;
   padding: 0.5rem 1rem;
 }
 .project__description {
@@ -271,8 +286,16 @@ body {
   text-align: center;
   padding: 2em;
   gap: 1rem;
-  border: 1px solid black;
+  background-color: white;
+  /* border: 1px solid black; */
   border-radius: 10px;
+  transition: .3s;
+}
+.project__item:hover {
+  transform: scale(1.02);
+  /* background-color: rgba(227, 225, 225, 0.889); */
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+
 }
 .project__item img {
   width: 90%;
@@ -298,6 +321,9 @@ body {
   max-width: 100%;
   position: relative;
 }
+.footer a:hover {
+  color: gray;
+}
 .footer-container {
   display: flex;
     flex-wrap: wrap;
@@ -313,6 +339,7 @@ body {
 }
 .footer__column a {
     color: inherit;
+    transition: .3s;
 }
 .footer__column h3 {
   margin-bottom: 2rem;
@@ -328,8 +355,173 @@ body {
   width: 100%;
   left: 0; 
 }
+/* HEADER RESPONSIVENESS */
+#check {
+  display: none; /* Hide the checkbox */
+}
+.icons {
+  position: absolute; /* Absolute positioning */
+  right: 5%; /* Distance from the right */
+  color: black;
+  cursor: pointer; /* Change cursor to pointer on hover */
+  display: none; /* Hide the icons by default */
+}
+.icons i {
+  font-size: 2.5rem; /* Size of the burger menu and close buttons */
+}
+/* MEDIA QUERIES */
+@media (max-width: 1400px) {
+  .header {
+    padding: 33px 100px;
+    width: calc(100% - 200px);
+  }
+}
+@media (max-width: 1064px) {
+.icons {
+  display: block;
+}
+#check:checked~.icons #close-icon {
+    display: block; /* Hide the menu icon when the checkbox is checked */
+    
+}
+#check:not(:checked)~.icons #close-icon {
+    display: none; /* Display the close icon when the checkbox is checked */
+}
+#check:checked~.icons #menu-icon {
+    display: none; /* Hide the menu icon when the checkbox is checked */
+    
+}
+#check:not(:checked)~.icons #menu-icon {
+    display: block; /* Display the close icon when the checkbox is checked */
+}
+.navlinks {
+    position: absolute;
+    flex-direction: column;
+    gap: 2rem;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: white;
+    transition: .3s ease-in-out;
+    overflow: hidden;
+}
+#check:checked~.navlinks {
+    height: 13rem; /* height of the drop-down beige navbar */
+    border-radius: 0 0 40px 40px ;
+    font-weight: 500;
+    padding-top: 2rem;
+}
+}
 
+@media (max-width: 1030px) {
+  .hero h1 {
+    font-size: 4rem;
+  }
+  .hero p {
+    
+    width: 300px;
+  }
+  .about__me__container {
+    flex-direction: column;
+  }
+  .about__me__container p{
+    width: 70%;
+  }
+  .about__me__container img{
+    width: 70%;
+    height: auto;
+  }
+  #magnum__opus a {
+    line-height: 2rem;
+    width: 50%;
+  }
+}
+@media (max-width: 800px) {
+  .hero h1 {
+    font-size: 3rem;
+  }
+  .card {
+    width: 100%;
+    align-items: center;
+  }
+  #magnum__opus p {
+    line-height: 2rem;
+    width: 80%;
+  }
+  
+ }
+@media (max-width: 670px) {
+  .hero {
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero img{
+    display: block;
+    width: 50%;
+    height: auto;
+  }
+  #personal__attributes h1, #magnum__opus h1  {
+    display: flex;
+    margin-inline: auto;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    text-align: center;
+  }
+  .card img {
+    width: 80%;
+    height: auto;
 
+  }
+  
+ }
+ 
+ @media (max-width: 1445px) {
+   .diligence__cards {
+     flex-direction: column;
+     
+     gap: 4rem;
+   }
+   .diligence__cards p{
+     width: 700px;
+     line-height: 2rem;
+   }
+ }
+ @media (max-width: 1300px) {
+   .filter__buttons {
+    flex-direction: column;
+    width: 80%;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .filter__buttons button {
+    padding: 1rem 30%;
+    width: 80vw;
+
+   }
+ }
+ @media (max-width: 550px) {
+   .project__container {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+   }
+ }
+ @media (max-width: 912px) {
+  .footer {
+    padding: 3rem 3rem 6rem 3rem;
+  }
+   .footer-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+   }
+   .footer__column {
+    width: 100%;
+    max-width: unset;
+    align-items: center;
+    
+   }
+ }
 
 
 
