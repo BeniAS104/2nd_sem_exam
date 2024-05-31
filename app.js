@@ -10,7 +10,7 @@ window.addEventListener("load", initApp); // When the page is loaded, run initAp
 // This function fetches data from the specified URL
 async function getData () {
   // Fetch data from the URL
-  const response = await fetch ("http://headless.bendev.dk/wp-json/wp/v2/projects?acf_format=standard&orderby=date&order=asc");
+  const response = await fetch ("https://headless.bendev.dk/wp-json/wp/v2/projects?acf_format=standard&orderby=date&order=asc");
   // Extract JSON data from the response
   const data = await response.json();
   // Return the extracted data
