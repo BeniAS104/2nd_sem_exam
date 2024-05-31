@@ -25,7 +25,7 @@ function displayProjects(projectData){
   // Loops through each project in the fetched data
   for (const project of projectData) {
     // Logs the number of filterableCards (not sure what this refers to, maybe a debugging statement?)
-    console.log("Number of filterableCards:", projectData.length); // Check if filterableCards is not empty
+    console.log(projectData.length); // Checking the amount of items in the array of projectData
     // Inserts HTML for each project into the projectGrid element
     projectGrid.insertAdjacentHTML(
       "beforeend",
@@ -45,7 +45,7 @@ function displayProjects(projectData){
 // Selects all filter buttons and filterable cards (project_items)
 const filterButtons = document.querySelectorAll(".filter__buttons button");
 const filterableCards = document.querySelectorAll(".project__item");
- console.log( filterableCards.length); // Check if filterableCards is not empty
+ console.log( filterableCards.length); // Check if filterableCards is not empty (it is somehow)
 
 // Create and define the function for filtering
 async function filterCards(clickEvent) {
