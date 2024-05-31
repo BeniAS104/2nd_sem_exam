@@ -269,6 +269,7 @@ body {
   gap: 1em;
   padding: 2em; 
   position: relative;
+  transition: .3s ;
 }
 .project__type {
   font-weight: 500;

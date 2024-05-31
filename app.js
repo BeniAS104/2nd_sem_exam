@@ -1,31 +1,46 @@
 "use strict"; // Use ECMAScript 5 strict mode in browsers that support it
 
-window.addEventListener("load", initApp); // When the page is loaded, run initApp function
-// Function to initialize the Web App
-  async function initApp() {
+
+// Initialize the initApp function when the window loads
+window.addEventListener("load", initApp);
+
+// Function initializing the Web App
+async function initApp() {
   const projectData = await getData();
   displayProjects(projectData);
-}
+  //The next part is for a function further along - filterCards
+  // Selects all filter buttons and filterable cards (project_items) after projects are displayed
+  const filterButtons = document.querySelectorAll(".filter__buttons button");
+  const filterableCards = document.querySelectorAll(".project__item");
 
-// This function fetches data from the specified URL
-async function getData () {
+  console.log(filterableCards.length); // Check if filterableCards is not empty (debugging)
+
+  // Adds a click event listener to each of the filtering buttons
+  for (let i = 0; i < filterButtons.length; i++) {
+    filterButtons[i].addEventListener("click", function(clickEvent) {
+      filterCards(clickEvent, filterableCards);
+    });
+  }
+}
+// Function to fetch data from the specified URL
+async function getData() {
   // Fetch data from the URL
-  const response = await fetch ("https://headless.bendev.dk/wp-json/wp/v2/projects?acf_format=standard&orderby=date&order=asc");
+  const response = await fetch("https://headless.bendev.dk/wp-json/wp/v2/projects?acf_format=standard&orderby=date&order=asc");
   // Extract JSON data from the response
   const data = await response.json();
-  // Return the extracted data
+  //returns the data variable
   return data;
 }
 
-// displays the fetched project data on the webpage
-function displayProjects(projectData){
+// Function to fetch and display project data on the webpage
+async function displayProjects(projectData) {
   // Selects the HTML element with the class "project__container"
   const projectGrid = document.querySelector(".project__container");
 
   // Loops through each project in the fetched data
   for (const project of projectData) {
-    // Logs the number of filterableCards (not sure what this refers to, maybe a debugging statement?)
-    console.log(projectData.length); // Checking the amount of items in the array of projectData
+    // Logs the number of filterableCards (debugging statement)
+    console.log(projectData.length); // Checking the amount of items in the array of projectData 
     // Inserts HTML for each project into the projectGrid element
     projectGrid.insertAdjacentHTML(
       "beforeend",
@@ -37,37 +52,31 @@ function displayProjects(projectData){
         <p class="project__description">${project.acf.description}</p>
         <a href="${project.acf.link}" class="project__link">See Solution</a>
       </div>
-    `
+      `
     );
   }
 }
 
-// Selects all filter buttons and filterable cards (project_items)
-const filterButtons = document.querySelectorAll(".filter__buttons button");
-const filterableCards = document.querySelectorAll(".project__item");
- console.log( filterableCards.length); // Check if filterableCards is not empty (it is somehow)
+// Function to filter cards based on the clicked button - with 2 parameters of clickEvent and filterableCards
+async function filterCards(clickEvent, filterableCards) {
+  const filterButtons = document.querySelectorAll(".filter__buttons button");
 
-// Create and define the function for filtering
-async function filterCards(clickEvent) {
-  // Remove active class from all buttons
+  // stripping 'active' class from all buttons
   for (const button of filterButtons) {
     button.classList.remove("active");
   }
-  // Add active class to the clicked button
+
+  // Adding 'active' class to the clicked button
   clickEvent.target.classList.add("active");
-  
-  // Iterate through every card
+
+  // Hiding all projects
   for (const project of filterableCards) {
-    // Add "hide" class to hide every card initially
     project.classList.add("hide");
-    // If project matches the selected filter or "all", then remove the hide classes
+
+    // Showing projects that match the clicked button's data-name or all projects if 'all' is clicked
     if (project.dataset.name === clickEvent.target.dataset.name || clickEvent.target.dataset.name === "all") {
       project.classList.remove("hide");
     }
   }
 }
 
-// Adds a click event listener to each of the filter buttons - if clicked then activate the function above
-for (const button of filterButtons) {
-  button.addEventListener("click", filterCards);
-}
