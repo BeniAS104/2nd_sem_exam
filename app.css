@@ -264,6 +264,7 @@ body {
   display: grid;
   width: 80%;
   margin-inline: auto;
+  /* creates responsive columns with a minimum of 400px and a maximum of 1 fraction, automatically filling the needed space depending on the screen */
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 1em;
   padding: 2em; 
@@ -503,7 +504,7 @@ body {
  }
  @media (max-width: 550px) {
    .project__container {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
    }
  }
  @media (max-width: 912px) {
