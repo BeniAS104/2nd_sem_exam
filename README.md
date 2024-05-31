@@ -1,3 +1,3 @@
-# Project Template
+# 2nd Semester Programming Exam
 
-Simple web frontend project template with `index.html`, `app.css` and `app.js`.
+A repository tailored to work on the 2nd Semester extracurricular exam at Business Academy Aarhus.
