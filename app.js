@@ -39,7 +39,7 @@ async function displayProjects(projectData) {
 
   // Loops through each project in the fetched data
   for (const project of projectData) {
-    // Logs the number of filterableCards (debugging statement)
+    // Logs the number of filterableCards (debugging)
     console.log(projectData.length); // Checking the amount of items in the array of projectData 
     // Inserts HTML for each project into the projectGrid element
     projectGrid.insertAdjacentHTML(
